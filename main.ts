@@ -2,7 +2,8 @@ import { MuxAsyncIterator } from "https://deno.land/std@0.213.0/async/mux_async_
 
 import { Request } from "./request.ts";
 
-const httpServer = Deno.listen({ port: 8080, hostname: "127.0.0.1" });
+//const httpServer = Deno.listen({ port: 80, hostname: "127.0.0.1" });
+const httpServer = Deno.listen({ port: 80});
 const listener = new MuxAsyncIterator<Deno.Conn>();
 listener.add(httpServer);
 
