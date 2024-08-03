@@ -3,12 +3,13 @@ import { Application } from "https://deno.land/x/oak@v12.6.2/mod.ts";
 
 const app = new Application();
 
-//app.use(proxy("https://github.com/"));
+app.use(proxy("https://www.sogou.com/"));
+/*
 app.use(
   function (sxw, res) {
     // console.log(sxw.request.url.pathname);
     proxy("https://www.sogou.com${sxw.request.url.pathname}");
   },
 );
-
+*/
 await app.listen({ port: 80 });
