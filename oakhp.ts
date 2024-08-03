@@ -5,4 +5,4 @@ const app = new Application();
 
 app.use(proxy("https://github.com/"));
 
-await app.listen({ port: 3000 });
+await app.listen({ port: 80 });
