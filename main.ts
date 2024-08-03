@@ -1,4 +1,3 @@
-console.log("server has started on http://localhost:443 🚀");
 import { MuxAsyncIterator } from "https://deno.land/std@0.224.0/async/mux_async_iterator.ts";
 import { readLines } from "https://deno.land/std@0.224.0/io/read_lines.ts";
 
