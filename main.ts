@@ -9,7 +9,7 @@ import { readLines } from "https://deno.land/std@0.224.0/io/read_lines.ts";
 // );
 
 // const httpServer = Deno.listenTls({ port: 443, cert, key });
-const httpServer = Deno.listen({ port: 80 });
+const httpServer = Deno.listen({ port: 443 });
 const listener = new MuxAsyncIterator<Deno.Conn>();
 listener.add(httpServer);
 
