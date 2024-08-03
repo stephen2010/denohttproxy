@@ -7,7 +7,7 @@ const app = new Application();
 app.use(
   function (sxw, res) {
     // console.log(sxw.request.url.pathname);
-    proxy("https://www.sogou.com" + sxw.request.url.pathname);
+    proxy("https://www.sogou.com${sxw.request.url.pathname}");
   },
 );
 
