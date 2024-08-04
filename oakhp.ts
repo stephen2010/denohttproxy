@@ -39,7 +39,3 @@ class ProxyHTTP {
 const server = Deno.listen({ port: 80 });
 const proxy = new ProxyHTTP(server);
 proxy.listen();
-
-const server = Deno.listen({port: 80 });
-const proxy = new ProxyHTTP(server, "https://github.com");
-proxy.listen();
