@@ -14,20 +14,17 @@ app.use(
 
 class ProxyHTTP {
   public readonly listener: Deno.Listener;
-  public readonly target: URL;
   public listening = false;
-  constructor(listener: Deno.Listener, target: URL | string) {
+  constructor(listener: Deno.Listener) {
     this.listener = listener;
-    this.target = target instanceof URL ? target : new URL(target);
   }
   private async handler(conn: Deno.Conn) {
     const httpConn = Deno.serveHttp(conn);
     for await (const { request, respondWith } of httpConn) {
       const url = new URL(request.url);
-      url.hostname = this.target.hostname;
-      url.port = this.target.port;
-//      console.log(url);
-      respondWith(fetch(url.toString(), request));
+      const target = "https://" + url.pathname;
+
+      respondWith(fetch(target, request));
     }
   }
   public async listen() {
@@ -38,6 +35,10 @@ class ProxyHTTP {
     this.listening = false;
   }
 }
+
+const server = Deno.listen({ port: 80 });
+const proxy = new ProxyHTTP(server);
+proxy.listen();
 
 const server = Deno.listen({port: 80 });
 const proxy = new ProxyHTTP(server, "https://github.com");
