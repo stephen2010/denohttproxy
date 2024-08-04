@@ -1,15 +1,7 @@
 import { MuxAsyncIterator } from "https://deno.land/std@0.224.0/async/mux_async_iterator.ts";
 import { readLines } from "https://deno.land/std@0.224.0/io/read_lines.ts";
 
-// const cert = await Deno.readTextFile(
-//   "/home/ste/work/certs/cert-lets_encrypt-AocCcg6zccpeNEWFsVIPfSfgjUA0aS-mSNlW1-U1I-o",
-// );
-// const key = await Deno.readTextFile(
-//   "/home/ste/work/certs/key-lets_encrypt-AocCcg6zccpeNEWFsVIPfSfgjUA0aS-mSNlW1-U1I-o",
-// );
-
-// const httpServer = Deno.listenTls({ port: 443, cert, key });
-const httpServer = Deno.listen({ port: 443 });
+const httpServer = Deno.listen({ port: 80 });
 const listener = new MuxAsyncIterator<Deno.Conn>();
 listener.add(httpServer);
 
