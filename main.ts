@@ -1,7 +1,7 @@
 import { MuxAsyncIterator } from "https://deno.land/std@0.224.0/async/mux_async_iterator.ts";
 import { readLines } from "https://deno.land/std@0.224.0/io/read_lines.ts";
 
-const httpServer = Deno.listen({ port: 80 });
+const httpServer = Deno.listen({ port: 8080 });
 const listener = new MuxAsyncIterator<Deno.Conn>();
 listener.add(httpServer);
 
