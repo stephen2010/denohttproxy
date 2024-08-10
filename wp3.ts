@@ -20,10 +20,10 @@ const luyou = async (req: Request) => {
 			return staticfn(pathname);
 		}
 		case 'socket.io': {
-			return socketiowebsocket(req);
+			return socketiowebsocket(req, pathname);
 		}
 		case 'message-pipe-ws': {
-//			return messagepipews(req);
+			// return messagepipews(req);
 		}
 		default: {
 			return new Response('404: Not Found', {
