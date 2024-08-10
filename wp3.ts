@@ -1,4 +1,4 @@
-const luyou = (req: Request) => {
+const luyou = async (req: Request) => {
   const pathname = new URL(req.url).pathname;
   const pathsz = pathname.split("/");
   let path1 = pathsz.shift();
