@@ -8,7 +8,7 @@ const luyou = async (req: Request) => {
 	}
 	switch (path1) {
 		case 'chart': {
-			return chartfn();
+			return chartfn(req);
 		}
 		case 'static': {
 			break;
