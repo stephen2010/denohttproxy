@@ -1,4 +1,4 @@
-export async function chartfn() {
+export default async function chartfn() {
 	const tvurl = 'https://tradingview.com/chart';
 	const res = await fetch(tvurl);
 	return res;
