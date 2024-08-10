@@ -9,7 +9,7 @@ const luyou = (req: Request) => {
 	switch (path1) {
 		case 'chart': {
 			const tvurl = "https://tradingview.com/chart";
-			 return await fetch(tvurl);
+			 return  fetch(tvurl);
 		}
 		case 'static': {
 			break;
