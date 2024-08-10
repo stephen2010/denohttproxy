@@ -6,7 +6,9 @@ import {
 } from './chartfn.ts';
 
 const luyou = async (req: Request) => {
-	const pathname = new URL(req.url).pathname;
+	const url = new URL(req.url);
+
+	const pathname = url.pathname;
 	const pathsz = pathname.split('/');
 	let path1 = pathsz.shift();
 	if (pathsz.length != 0) {
@@ -20,7 +22,7 @@ const luyou = async (req: Request) => {
 			return staticfn(pathname);
 		}
 		case 'socket.io': {
-			return socketiowebsocket(req, pathname);
+			return socketiowebsocket(req, pathname, url.search);
 		}
 		case 'message-pipe-ws': {
 			// return messagepipews(req);
