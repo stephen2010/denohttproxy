@@ -1,4 +1,10 @@
-import { chartfn, staticfn } from './chartfn.ts';
+import {
+	chartfn,
+	messagepipews,
+	socketiowebsocket,
+	staticfn,
+} from './chartfn.ts';
+
 const luyou = async (req: Request) => {
 	const pathname = new URL(req.url).pathname;
 	const pathsz = pathname.split('/');
@@ -13,12 +19,12 @@ const luyou = async (req: Request) => {
 		case 'static': {
 			return staticfn(pathname);
 		}
-		// case 'socket.io': {
-		//  return socketiowebsocket(req);
-		// }
-		// case 'message-pipe-ws': {
-		//  return messagepipews(req);
-		// }
+		case 'socket.io': {
+			return socketiowebsocket(req);
+		}
+		case 'message-pipe-ws': {
+//			return messagepipews(req);
+		}
 		default: {
 			return new Response('404: Not Found', {
 				status: 404,
