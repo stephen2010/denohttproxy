@@ -15,7 +15,7 @@ export async function chartfn(req: Request) {
 }
 
 export async function staticfn(path1: string) {
-	const tvurl = 'https://static.tradingview.com/';
+	const tvurl = 'https://static.tradingview.com';
 	const res = await fetch(tvurl + path1);
 	return res;
 }
