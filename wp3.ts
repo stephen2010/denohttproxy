@@ -1,8 +1,10 @@
-const wsworker = new Worker(import.meta.resolve('./wsworker.ts'), {
-	type: 'module',
-});
-wsworker.onmessage = async (e) => {
-	const path1 = e.data;
+const luyou = async (req: Request) => {
+	const pathname = new URL(req.url).pathname;
+	const pathsz = pathname.split('/');
+	let path1 = pathsz.shift();
+	if (pathsz.length != 0) {
+		path1 = pathsz.shift();
+	}
 	switch (path1) {
 		case 'chart': {
 			const tvurl = 'https://tradingview.com/chart';
@@ -25,11 +27,6 @@ wsworker.onmessage = async (e) => {
 			});
 		}
 	}
-};
-
-const luyou = async (req: Request) => {
-	const pathname = new URL(req.url).pathname;
-	wsworker.postMessage(pathname);
 };
 
 Deno.serve(luyou);
