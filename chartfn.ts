@@ -5,7 +5,7 @@ export default async function chartfn() {
 	return res;
 }
 */
-import { serveFile } from '@std/http/file-server.ts';
+import { serveFile } from 'jsr:@std/http/file-server.ts';
 
 export default async function chartfn(req: Request) {
 	return serveFile(
