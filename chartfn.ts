@@ -20,9 +20,9 @@ export async function staticfn(path1: string) {
 	return res;
 }
 
-const ws1out = new WebSocket('wss://data.tradingview.com');
+export function socketiowebsocket(req: Request,pathname:string) {
+	const ws1out = new WebSocket('wss://data.tradingview.com'+pathname);
 
-export function socketiowebsocket(req: Request) {
 	const { socket: ws1, response } = Deno.upgradeWebSocket(req);
 	ws1out.onmessage = (e) => {
 		const shuju = e.data;
