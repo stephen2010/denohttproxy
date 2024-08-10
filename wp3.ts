@@ -1,4 +1,4 @@
-import chartfn from './chartfn.ts';
+import { chartfn, staticfn } from './chartfn.ts';
 const luyou = async (req: Request) => {
 	const pathname = new URL(req.url).pathname;
 	const pathsz = pathname.split('/');
@@ -11,7 +11,7 @@ const luyou = async (req: Request) => {
 			return chartfn(req);
 		}
 		case 'static': {
-			break;
+			return staticfn(path1);
 		}
 		// case 'socket.io': {
 		//  return socketiowebsocket(req);
