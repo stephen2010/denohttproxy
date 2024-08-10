@@ -1,3 +1,4 @@
+import chartfn from './chartfn.ts';
 const luyou = async (req: Request) => {
 	const pathname = new URL(req.url).pathname;
 	const pathsz = pathname.split('/');
@@ -7,9 +8,7 @@ const luyou = async (req: Request) => {
 	}
 	switch (path1) {
 		case 'chart': {
-			const tvurl = 'https://tradingview.com/chart';
-			const res = await fetch(tvurl);
-			return res;
+			return chartfn();
 		}
 		case 'static': {
 			break;
@@ -21,7 +20,6 @@ const luyou = async (req: Request) => {
 		//  return messagepipews(req);
 		// }
 		default: {
-			// console.log('luyou:', path1, pathsz);
 			return new Response('404: Not Found', {
 				status: 404,
 			});
