@@ -19,7 +19,7 @@ const luyou = async (req: Request) => {
 			return chartfn(req);
 		}
 		case 'static': {
-			return staticfn(pathname);
+			return staticfn(req, pathname);
 		}
 		case 'socket.io': {
 			return socketiowebsocket(req, pathname, url.search);
