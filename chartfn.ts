@@ -2,11 +2,11 @@ import { serveFile } from "jsr:@std/http/file-server";
 
 const regex1 = /https\:\/\/static\.tradingview\.com/g;
 const regex2 = /data\.tradingview\.com/i;
+// console.log(req.headers);
+// console.log(req.headers.get("accept"));
 
 export async function chartfn(req: Request) {
   /*
-  console.log(req.headers);
-  console.log(req.headers.get("accept"));
   return serveFile(
     req,
     "./tv.html",
@@ -14,11 +14,11 @@ export async function chartfn(req: Request) {
   */
   const tvurl = "https://tradingview.com/chart";
   const res = await fetch(tvurl, req);
-  const indexhtml = await res.text();
-  let gaiguo = indexhtml.replace(regex1, "");
-  gaiguo = gaiguo.replace(regex2, "wp3.deno.dev");
+  let indexhtml = await res.text();
+  indexhtml = indexhtml.replace(regex1, "");
+  indexhtml = indexhtml.replace(regex2, "wp3.deno.dev");
 
-  return new Response(gaiguo, res);
+  return new Response(indexhtml, res);
 }
 
 const newHeaders = new Headers({
@@ -27,12 +27,12 @@ const newHeaders = new Headers({
 });
 
 export async function staticfn(req: Request, pathname: string) {
-  const tvurl = "https://static.tradingview.com";
+  const tvurl = "https://static.tradingview.com" + pathname;
   newHeaders.set("User-Agent", req.headers.get("User-Agent")!);
   newHeaders.set("Accept", req.headers.get("Accept")!);
   newHeaders.set("Accept-Language", req.headers.get("Accept-Language")!);
   newHeaders.set("Accept-Encoding", req.headers.get("Accept-Encoding")!);
-  const res = await fetch(tvurl + pathname, {
+  const res = await fetch(tvurl, {
     headers: newHeaders,
   });
   return res;
