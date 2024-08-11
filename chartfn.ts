@@ -21,9 +21,16 @@ export async function chartfn(req: Request) {
   return new Response(gaiguo, res);
 }
 
+const newHeaders = new Headers({
+  host: "tradingview.com",
+  referer: "https://tradingview.com/chart",
+});
+
 export async function staticfn(req: Request, pathname: string) {
   const tvurl = "https://static.tradingview.com";
-  const res = await fetch(tvurl + pathname);
+  const res = await fetch(tvurl + pathname, {
+    headers: newHeaders,
+  });
   return res;
   // return new Response("404: Not Found", {
   //   status: 404,
