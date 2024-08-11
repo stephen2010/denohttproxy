@@ -23,7 +23,7 @@ export async function chartfn(req: Request) {
 
 export async function staticfn(req: Request, pathname: string) {
   const tvurl = "https://static.tradingview.com";
-  const res = await fetch(tvurl + pathname, req);
+  const res = await fetch(tvurl + pathname);
   return res;
   // return new Response("404: Not Found", {
   //   status: 404,
