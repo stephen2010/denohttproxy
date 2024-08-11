@@ -16,7 +16,7 @@ export async function chartfn(req: Request) {
   const res = await fetch(tvurl, req);
   const indexhtml = await res.text();
   let gaiguo = indexhtml.replace(regex1, "");
-  gaiguo = indexhtml.replace(regex2, "wp3.deno.dev");
+  gaiguo = gaiguo.replace(regex2, "wp3.deno.dev");
 
   return new Response(gaiguo, res);
 }
