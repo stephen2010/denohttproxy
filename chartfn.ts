@@ -22,12 +22,16 @@ export async function chartfn(req: Request) {
 }
 
 const newHeaders = new Headers({
-  host: "tradingview.com",
-  referer: "https://tradingview.com/chart",
+  Host: "tradingview.com",
+  Referer: "https://tradingview.com/chart",
 });
 
 export async function staticfn(req: Request, pathname: string) {
   const tvurl = "https://static.tradingview.com";
+  newHeaders.set("User-Agent", req.headers.get("User-Agent")!);
+  newHeaders.set("Accept", req.headers.get("Accept")!);
+  newHeaders.set("Accept-Language", req.headers.get("Accept-Language")!);
+  newHeaders.set("Accept-Encoding", req.headers.get("Accept-Encoding")!);
   const res = await fetch(tvurl + pathname, {
     headers: newHeaders,
   });
