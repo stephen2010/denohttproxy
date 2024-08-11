@@ -21,15 +21,13 @@ export async function chartfn(req: Request) {
   return new Response(gaiguo, res);
 }
 
-export async function staticfn(pathname: string) {
-  // const tvurl = "https://static.tradingview.com";
-  // const res = await fetch(tvurl + pathname, {
-  //   headers: req.headers,
+export async function staticfn(req: Request, pathname: string) {
+  const tvurl = "https://static.tradingview.com";
+  const res = await fetch(tvurl + pathname, req);
+  return res;
+  // return new Response("404: Not Found", {
+  //   status: 404,
   // });
-  // return res;
-  return new Response("404: Not Found", {
-    status: 404,
-  });
 }
 
 export function socketiowebsocket(
