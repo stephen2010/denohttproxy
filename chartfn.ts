@@ -22,8 +22,10 @@ export async function chartfn(req: Request) {
 }
 
 const newHeaders = new Headers({
-  Host: "tradingview.com",
-  Referer: "https://tradingview.com/chart",
+  Host: "static.tradingview.com",
+  Origin: "https://tradingview.com/",
+  Referer: "https://tradingview.com/",
+  Connection: "keep-alive",
 });
 
 export async function staticfn(req: Request, pathname: string) {
@@ -32,6 +34,9 @@ export async function staticfn(req: Request, pathname: string) {
   newHeaders.set("Accept", req.headers.get("Accept")!);
   newHeaders.set("Accept-Language", req.headers.get("Accept-Language")!);
   newHeaders.set("Accept-Encoding", req.headers.get("Accept-Encoding")!);
+  newHeaders.set("Sec-Fetch-Dest", req.headers.get("Sec-Fetch-Dest")!);
+  newHeaders.set("Sec-Fetch-Mode", req.headers.get("Sec-Fetch-Mode")!);
+  newHeaders.set("Sec-Fetch-Site", req.headers.get("Sec-Fetch-Site")!);
   const res = await fetch(tvurl, {
     headers: newHeaders,
   });
