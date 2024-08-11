@@ -1,6 +1,6 @@
 import { serveFile } from "jsr:@std/http/file-server";
 
-const regex1 = /https:\/\/static\.tradingview\.com/g;
+const regex1 = /https\:\/\/static\.tradingview\.com/g;
 const regex2 = /data\.tradingview\.com/i;
 
 export async function chartfn(req: Request) {
