@@ -24,33 +24,39 @@ export async function chartfn(req: Request) {
 const newHeaders = new Headers({
   Host: "static.tradingview.com",
   Origin: "https://tradingview.com/",
-  Referer: "https://tradingview.com/chart",
+  // Referer: "https://tradingview.com/chart",
   Connection: "keep-alive",
+  "User-Agent":
+    "Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0",
+  Accept: "*/*",
+  "Accept-Language": "en-US,en;q=0.5",
+  "Accept-Encoding": "gzip, deflate, br, zstd",
+  //Sec-Fetch-Dest:    "script",
+  "Sec-Fetch-Mode": "cors",
+  "Sec-Fetch-Site": "cross-site",
 });
 
 export async function staticfn(req: Request, pathname: string) {
   const tvurl = "https://static.tradingview.com" + pathname;
-  newHeaders.set("User-Agent", req.headers.get("User-Agent")!);
-  newHeaders.set("Accept", req.headers.get("Accept") ?? "*/*");
-  newHeaders.set(
-    "Accept-Language",
-    req.headers.get("Accept-Language") ?? "en-US,en;q=0.5",
-  );
-  newHeaders.set(
-    "Accept-Encoding",
-    req.headers.get("Accept-Encoding") ?? "gzip, deflate, br, zstd",
-  );
-  newHeaders.set(
-    "Sec-Fetch-Dest",
-    req.headers.get("Sec-Fetch-Dest") ?? "script",
-  );
-  newHeaders.set("Sec-Fetch-Mode", req.headers.get("Sec-Fetch-Mode") ?? "cors");
-  newHeaders.set(
-    "Sec-Fetch-Site",
-    req.headers.get("Sec-Fetch-Site") ?? "cross-site",
-  );
+
+  const localfile = "/home/ste/tradingview/20240813" + pathname;
+//  const localdir = dirname(localfile);
+  const localfilext = extname(localfile);
+  if (localfilext == ".css") {
+    newHeaders.set(
+      "Sec-Fetch-Dest",
+      "style",
+    );
+  } else if (localfilext == ".js") {
+    newHeaders.set(
+      "Sec-Fetch-Dest",
+      "script",
+    );
+  }
+
   const res = await fetch(tvurl, {
     headers: newHeaders,
+    referrer: "https://tradingview.com/chart",
   });
   return res;
   // return new Response("404: Not Found", {
