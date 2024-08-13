@@ -24,7 +24,7 @@ export async function chartfn(req: Request) {
 const newHeaders = new Headers({
   Host: "static.tradingview.com",
   Origin: "https://tradingview.com/",
-  Referer: "https://tradingview.com/",
+  Referer: "https://tradingview.com/chart",
   Connection: "keep-alive",
 });
 
