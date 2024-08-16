@@ -57,3 +57,18 @@ const luyou = async (req: Request) => {
 };
 
 Deno.serve(luyou);
+
+function getCookies(resheaders: Headers): string {
+  const reqcookies: string[] = [];
+  for (const [key, setcookiestr] of resheaders) {
+    if (key === "set-cookie") {
+      const c = setcookiestr.split(";");
+      const c1 = c.shift();
+      if (c1 != null) {
+        reqcookies.push(c1);
+      }
+    }
+  }
+  const reqcookiestr = reqcookies.join(";");
+  return reqcookiestr;
+}
