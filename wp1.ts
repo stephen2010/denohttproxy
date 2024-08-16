@@ -3,9 +3,12 @@ const kv = await Deno.openKv();
 let target: string | undefined = undefined;
 
 const regex2 = /wp1\.deno\.dev/i;
-function tihuan(str: string): string {
-  const hoststr = str.replace(regex2, target);
-  return hoststr;
+function tihuan(str: string | null): string | undefined {
+  if (str != null) {
+    return str.replace(regex2, target);
+  } else if (str == null) {
+    return undefined;
+  }
 }
 
 const luyou = async (req: Request) => {
