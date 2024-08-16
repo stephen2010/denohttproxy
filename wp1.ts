@@ -14,6 +14,16 @@ const luyou = async (req: Request) => {
     var response = Response.redirect("https://wp1.deno.dev/", 301);
     return response;
   }
+  if (path1 == "delecookie") {
+    const iter = kv.list<string>({ prefix: ["cookie"] });
+    for await (const res of iter) {
+      console.log("cookie", res, " has deleted");
+      await kv.delete(res.key);
+    }
+    return new Response("all cookies has deleted", {
+      status: 200,
+    });
+  }
 
   if (target == undefined) {
     return new Response("404: Not Found", {
@@ -53,6 +63,7 @@ const luyou = async (req: Request) => {
   const res = await fetch(targeturl, {
     headers: newhearders,
     method: req.method,
+    body: req.body,
   });
   const reqcookiestr = getCookies(res.headers);
   await kv.set(["cookie", target], reqcookiestr);
