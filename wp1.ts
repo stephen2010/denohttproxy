@@ -1,7 +1,13 @@
+
 const kv = await Deno.openKv();
 
-const regex2 = /wp1\.deno\.dev/i;
 let target: string | undefined = undefined;
+
+const regex2 = /wp1\.deno\.dev/i;
+function tihuan(str: string): string {
+  const hoststr = str.replace(regex2, target);
+  return hoststr;
+}
 
 const luyou = async (req: Request) => {
   const url = new URL(req.url);
@@ -32,13 +38,13 @@ const luyou = async (req: Request) => {
       status: 404,
     });
   }
-  const hoststr = req.headers.host.replace(regex2, target);
-  const originstr = req.headers.origin.replace(regex2, target);
-  const refererstr = req.headers.referer.replace(regex2, target);
+  const hoststr = req.headers.get("Host");
+  const originstr = req.headers.get("Origin");
+  const refererstr = req.headers.get("Referer");
   const newhearders = new Headers({
-    host: hoststr,
-    origin: originstr,
-    referer: refererstr,
+    host: tihuan(hoststr),
+    origin: tihuan(originstr),
+    referer: tihuan(refererstr),
   });
   const rescookiestr = (await kv.get(["cookie", target])).value;
   if (rescookiestr != null) {
