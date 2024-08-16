@@ -1,4 +1,3 @@
-
 const kv = await Deno.openKv();
 
 let target: string | undefined = undefined;
@@ -38,9 +37,9 @@ const luyou = async (req: Request) => {
       status: 404,
     });
   }
-  const hoststr = req.headers.get("Host");
-  const originstr = req.headers.get("Origin");
-  const refererstr = req.headers.get("Referer");
+  const hoststr = req.headers.get("Host")?;
+  const originstr = req.headers.get("Origin")?;
+  const refererstr = req.headers.get("Referer")?;
   const newhearders = new Headers({
     host: tihuan(hoststr),
     origin: tihuan(originstr),
