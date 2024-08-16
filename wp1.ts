@@ -15,13 +15,13 @@ const luyou = async (req: Request) => {
     return response;
   }
   if (path1 == "delecookie") {
-    for (const name of ["cookie", "wangzhi"]) {
-      const iter = kv.list<string>({ prefix: [name] });
-      for await (const res of iter) {
-        console.log(name, res, " has deleted");
-        await kv.delete(res.key);
-      }
+    const iter = kv.list<string>({ prefix: ["cookie"] });
+    for await (const item of iter) {
+      console.log("cookie", item, " has deleted");
+      await kv.delete(item.key);
     }
+    const entry = await kv.get(["wangzhi"]);
+    await kv.delete(entry.key);
     return new Response("all cookies has deleted", {
       status: 200,
     });
