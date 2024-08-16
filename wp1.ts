@@ -62,10 +62,14 @@ const luyou = async (req: Request) => {
     }
   }
   const targeturl = req.url.replace(regex2, target);
+  let reqform: FormData | undefined = undefined;
+  if (req.method == "POST") {
+    reqform = await req.formData();
+  }
   const res = await fetch(targeturl, {
     headers: newhearders,
     method: req.method,
-    body: req.body,
+    body: reqform,
   });
   const reqcookiestr = getCookies(res.headers);
   await kv.set(["cookie", target], reqcookiestr);
