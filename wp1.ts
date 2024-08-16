@@ -32,16 +32,18 @@ const luyou = async (req: Request) => {
       status: 404,
     });
   }
+  const targeturl = req.url.replace(regex2, target);
   const httpstr = "https://" + target + "/";
   const newhearders = new Headers({
     host: target,
-    referer: httpstr,
+    referer: targeturl,
     origin: httpstr,
   });
   const rescookiestr = (await kv.get(["cookie", target])).value;
   if (rescookiestr != null) {
     newhearders.set("Cookie", rescookiestr as string);
   }
+
   for (var [key, value] of req.headers) {
     switch (key) {
       case "cookie": {
@@ -61,11 +63,12 @@ const luyou = async (req: Request) => {
       }
     }
   }
-  const targeturl = req.url.replace(regex2, target);
+
   let reqform: FormData | undefined = undefined;
   if (req.method == "POST") {
     reqform = await req.formData();
   }
+
   const res = await fetch(targeturl, {
     headers: newhearders,
     method: req.method,
@@ -92,5 +95,3 @@ function getCookies(resheaders: Headers): string {
   const reqcookiestr = reqcookies.join(";");
   return reqcookiestr;
 }
-
-
