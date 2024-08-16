@@ -1,7 +1,7 @@
 const kv = await Deno.openKv();
-import { serveFile } from "jsr:@std/http/file-server";
 
 const regex2 = /wp1\.deno\.dev/i;
+let target: string | undefined = undefined;
 
 const luyou = async (req: Request) => {
   const url = new URL(req.url);
@@ -10,19 +10,50 @@ const luyou = async (req: Request) => {
   pathsz.shift();
   let path1 = pathsz.shift();
   if (path1 == "wangzhi") {
-    const wangzhi = pathsz.shift();
-    await kv.set(["wangzhi"], wangzhi);
+    target = pathsz.shift();
     var response = Response.redirect("https://wp1.deno.dev/", 301);
     return response;
   }
-  const value = (await kv.get(["wangzhi"])).value;
-  if (!value) {
+
+  if (target == undefined) {
     return new Response("404: Not Found", {
       status: 404,
     });
   }
-  const target = req.url.replace(regex2, value as string);
-  return fetch(target);
+  const targeturl = req.url.replace(regex2, target);
+
+  const newhearders = new Headers({
+    host: target,
+    referer: "https://" + target + "/",
+  });
+  const rescookiestr = (await kv.get(["cookie", target])).value;
+  if (rescookiestr != null) {
+    newhearders.set("Cookie", rescookiestr as string);
+  }
+
+  for (var [key, value] of req.headers) {
+    switch (key) {
+      case "cookie": {
+        continue;
+      }
+      case "host": {
+        continue;
+      }
+      case "referer": {
+        continue;
+      }
+      default: {
+        newhearders.append(key, value);
+      }
+    }
+  }
+  const res = await fetch(targeturl, {
+    headers: newhearders,
+    method: req.method,
+  });
+  const reqcookiestr = getCookies(res.headers);
+  await kv.set(["cookie", target], reqcookiestr);
+  return res;
 };
 
 Deno.serve(luyou);
