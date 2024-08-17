@@ -1,10 +1,12 @@
 const kv = await Deno.openKv();
 
-let target: string | null = null;
+let target: string | undefined = undefined;
+let targeturl: string | undefined = undefined;
 
 const regex2 = /wp1\.deno\.dev/i;
 function tihuan(str: string): string {
-  return str.replace(regex2, target);
+  const hoststr = str.replace(regex2, target);
+  return hoststr;
 }
 
 const luyou = async (req: Request) => {
@@ -13,10 +15,12 @@ const luyou = async (req: Request) => {
   const pathsz = pn.split("/");
   pathsz.shift();
   let path1 = pathsz.shift();
-
-  if (path1 == "q") {
-    target = url.hash.slice(1);
-    return Response.redirect("https://wp1.deno.dev/", 301);
+  if (pn == "/") {
+    const luourl = url.hash.slice(1);
+    targeturl = "https://" + luourl;
+    
+    const luosz = luourl.split("/");
+    target = luosz.shift();
   }
   if (path1 == "delecookie") {
     const iter = kv.list<string>({ prefix: ["cookie"] });
@@ -24,14 +28,14 @@ const luyou = async (req: Request) => {
       console.log("cookie", item, " has deleted");
       await kv.delete(item.key);
     }
-    // const entry = await kv.get(["wangzhi"]);
-    // await kv.delete(entry.key);
+    const entry = await kv.get(["wangzhi"]);
+    await kv.delete(entry.key);
     return new Response("all cookies has deleted", {
       status: 200,
     });
   }
 
-  if (target == null) {
+  if (target == undefined) {
     return new Response("404: Not Found", {
       status: 404,
     });
@@ -67,7 +71,6 @@ const luyou = async (req: Request) => {
     reqform = await req.formData();
   }
 
-  const targeturl = req.url.replace(regex2, target);
   const res = await fetch(targeturl, {
     headers: newhearders,
     method: req.method,
