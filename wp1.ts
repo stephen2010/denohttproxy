@@ -1,14 +1,10 @@
 const kv = await Deno.openKv();
 
-let target: string | undefined = undefined;
+let target: string | null = null;
 
 const regex2 = /wp1\.deno\.dev/i;
-function tihuan(str: string | null): string | undefined {
-  if (str != null) {
-    return str.replace(regex2, target);
-  } else if (str == null) {
-    return undefined;
-  }
+function tihuan(str: string): string {
+  return str.replace(regex2, target);
 }
 
 const luyou = async (req: Request) => {
@@ -17,10 +13,10 @@ const luyou = async (req: Request) => {
   const pathsz = pn.split("/");
   pathsz.shift();
   let path1 = pathsz.shift();
-  if (path1 == "wangzhi") {
-    target = pathsz.shift();
-    var response = Response.redirect("https://wp1.deno.dev/", 301);
-    return response;
+
+  if (path1 == "q") {
+    target = url.hash.slice(1);
+    return Response.redirect("https://wp1.deno.dev/", 301);
   }
   if (path1 == "delecookie") {
     const iter = kv.list<string>({ prefix: ["cookie"] });
@@ -28,26 +24,19 @@ const luyou = async (req: Request) => {
       console.log("cookie", item, " has deleted");
       await kv.delete(item.key);
     }
-    const entry = await kv.get(["wangzhi"]);
-    await kv.delete(entry.key);
+    // const entry = await kv.get(["wangzhi"]);
+    // await kv.delete(entry.key);
     return new Response("all cookies has deleted", {
       status: 200,
     });
   }
 
-  if (target == undefined) {
+  if (target == null) {
     return new Response("404: Not Found", {
       status: 404,
     });
   }
-  const hoststr = req.headers.get("Host");
-  const originstr = req.headers.get("Origin");
-  const refererstr = req.headers.get("Referer");
-  const newhearders = new Headers({
-    host: tihuan(hoststr),
-    origin: tihuan(originstr),
-    referer: tihuan(refererstr),
-  });
+  const newhearders = new Headers();
   const rescookiestr = (await kv.get(["cookie", target])).value;
   if (rescookiestr != null) {
     newhearders.set("Cookie", rescookiestr as string);
@@ -59,13 +48,13 @@ const luyou = async (req: Request) => {
         continue;
       }
       case "host": {
-        continue;
+        newhearders.set(key, tihuan(value));
       }
       case "origin": {
-        continue;
+        newhearders.set(key, tihuan(value));
       }
       case "referer": {
-        continue;
+        newhearders.set(key, tihuan(value));
       }
       default: {
         newhearders.append(key, value);
