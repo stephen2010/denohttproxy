@@ -37,16 +37,16 @@ const luyou = async (req: Request) => {
     });
   }
   const newhearders = new Headers();
-  const rescookiestr = (await kv.get(["cookie", target])).value;
-  if (rescookiestr != null) {
-    newhearders.set("Cookie", rescookiestr as string);
-  }
+  // const rescookiestr = (await kv.get(["cookie", target])).value;
+  // if (rescookiestr != null) {
+  //   newhearders.set("Cookie", rescookiestr as string);
+  // }
 
   for (var [key, value] of req.headers) {
     switch (key) {
-      case "cookie": {
-        continue;
-      }
+      // case "cookie": {
+      //   continue;
+      // }
       case "host": {
         newhearders.set(key, tihuan(value));
       }
@@ -72,13 +72,13 @@ const luyou = async (req: Request) => {
     method: req.method,
     body: reqform,
   });
-  const reqcookiestr = getCookies(res.headers);
-  await kv.set(["cookie", target], reqcookiestr);
+  // const reqcookiestr = getCookies(res.headers);
+  // await kv.set(["cookie", target], reqcookiestr);
   return res;
 };
 
 Deno.serve(luyou);
-
+/*
 function getCookies(resheaders: Headers): string {
   const reqcookies: string[] = [];
   for (const [key, setcookiestr] of resheaders) {
@@ -93,3 +93,4 @@ function getCookies(resheaders: Headers): string {
   const reqcookiestr = reqcookies.join(";");
   return reqcookiestr;
 }
+*/
