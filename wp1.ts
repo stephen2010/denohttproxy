@@ -15,13 +15,10 @@ const luyou = async (req: Request) => {
   const pathsz = pn.split("/");
   pathsz.shift();
   let path1 = pathsz.shift();
-  if (pn == "/q") {
-    const luourl = url.hash.slice(1);
-    targeturl = "https://" + luourl;
-    
-    const luosz = luourl.split("/");
-    target = luosz.shift();
-//    return Response.redirect("https://wp1.deno.dev/", 301);
+  if (path1 == "wangzhi") {
+    targeturl = "https://" + pathsz.join("/");
+    target = pathsz.shift();
+    return Response.redirect("https://wp1.deno.dev/", 301);
   }
   if (path1 == "delecookie") {
     const iter = kv.list<string>({ prefix: ["cookie"] });
@@ -29,8 +26,6 @@ const luyou = async (req: Request) => {
       console.log("cookie", item, " has deleted");
       await kv.delete(item.key);
     }
-    const entry = await kv.get(["wangzhi"]);
-    await kv.delete(entry.key);
     return new Response("all cookies has deleted", {
       status: 200,
     });
