@@ -21,7 +21,7 @@ const luyou = async (req: Request) => {
     
     const luosz = luourl.split("/");
     target = luosz.shift();
-    return Response.redirect("https://wp1.deno.dev/", 301);
+//    return Response.redirect("https://wp1.deno.dev/", 301);
   }
   if (path1 == "delecookie") {
     const iter = kv.list<string>({ prefix: ["cookie"] });
