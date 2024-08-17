@@ -63,7 +63,7 @@ const luyou = async (req: Request) => {
       }
     }
   }
-  console.log("newhearders", newhearders);
+//  console.log("newhearders", newhearders);
 
   let reqform: FormData | undefined = undefined;
   if (req.method == "POST") {
