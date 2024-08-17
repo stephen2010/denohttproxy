@@ -48,12 +48,15 @@ const luyou = async (req: Request) => {
       // }
       case "host": {
         newhearders.set(key, tihuan(value));
+        break;
       }
       case "origin": {
         newhearders.set(key, tihuan(value));
+        break;
       }
       case "referer": {
         newhearders.set(key, tihuan(value));
+        break;
       }
       default: {
         newhearders.append(key, value);
