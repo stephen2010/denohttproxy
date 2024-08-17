@@ -1,7 +1,6 @@
 const kv = await Deno.openKv();
 
-let target: string | undefined = undefined;
-let targeturl: string | undefined = undefined;
+let target: string | null = null;
 
 const regex2 = /wp1\.deno\.dev/i;
 function tihuan(str: string): string {
@@ -16,7 +15,6 @@ const luyou = async (req: Request) => {
   pathsz.shift();
   let path1 = pathsz.shift();
   if (path1 == "wangzhi") {
-    targeturl = "https://" + pathsz.join("/");
     target = pathsz.shift();
     return Response.redirect("https://wp1.deno.dev/", 301);
   }
@@ -31,11 +29,12 @@ const luyou = async (req: Request) => {
     });
   }
 
-  if (target == undefined) {
+  if (target == null) {
     return new Response("404: Not Found", {
       status: 404,
     });
   }
+
   const newhearders = new Headers();
   // const rescookiestr = (await kv.get(["cookie", target])).value;
   // if (rescookiestr != null) {
@@ -67,6 +66,8 @@ const luyou = async (req: Request) => {
     reqform = await req.formData();
   }
 
+  const targeturl = req.url.replace(regex2, target);
+  // targeturl = "https://" + target + pn;
   const res = await fetch(targeturl, {
     headers: newhearders,
     method: req.method,
