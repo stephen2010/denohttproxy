@@ -60,10 +60,12 @@ const luyou = async (req: Request) => {
       }
     }
   }
+  console.log("newhearders", newhearders);
 
   let reqform: FormData | undefined = undefined;
   if (req.method == "POST") {
     reqform = await req.formData();
+    console.log("reqform", reqform);
   }
 
   const targeturl = req.url.replace(regex2, target);
