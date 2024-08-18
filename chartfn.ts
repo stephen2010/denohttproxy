@@ -20,16 +20,17 @@ export async function chartfn(req: Request) {
   if (value != null) {
     nh.set("host", value.replace(regex3, "tradingview.com"));
   }
-  console.log("/chart nh", nh);
+  // console.log("/chart nh", nh);
 
   const res = await fetch(target, {
     headers: nh,
   });
-  let indexhtml = await res.text();
-  indexhtml = indexhtml.replace(regex1, "");
+  return res;
+  // let indexhtml = await res.text();
+  // indexhtml = indexhtml.replace(regex1, "");
   // indexhtml = indexhtml.replace(regex2, "wp3.deno.dev");
 
-  return new Response(indexhtml, res);
+  // return new Response(indexhtml, res);
 }
 
 export async function staticfn(req: Request, pathname: string) {
@@ -53,7 +54,7 @@ export async function staticfn(req: Request, pathname: string) {
     const destzhi = localfilext == ".css" ? "style" : "script";
     nh.set("Sec-Fetch-Dest", destzhi);
   }
-  console.log("/static nh", nh);
+  // console.log("/static nh", nh);
 
   const res = await fetch(target, {
     headers: nh,
