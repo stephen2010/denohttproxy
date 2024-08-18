@@ -41,14 +41,14 @@ const luyou = async (req: Request) => {
 
   for (var [key, value] of req.headers) {
     switch (key) {
-      case "host": {
-        newhearders.set(key, tihuan(value));
-        break;
-      }
-      // case "origin": {
+      // case "host": {
       //   newhearders.set(key, tihuan(value));
       //   break;
       // }
+      case "origin": {
+        newhearders.set(key, tihuan(value));
+        break;
+      }
       case "referer": {
         newhearders.set(key, tihuan(value));
         break;
