@@ -18,8 +18,7 @@ const luyou = async (req: Request) => {
   let path1 = pathsz.shift();
   if (path1 == "wangzhi") {
     target = pathsz.shift();
-    return Response.redirect("~/", 301);
-//    return Response.redirect("https://wp1.deno.dev/", 301);
+    return Response.redirect("https://wp1.deno.dev/", 301);
   }
   if (path1 == "delecookie") {
     const iter = kv.list<string>({ prefix: ["cookie"] });
