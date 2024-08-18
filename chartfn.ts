@@ -32,6 +32,7 @@ export async function staticfn(req: Request, pathname: string) {
   //  const localdir = dirname(localfile);
   // const localfilext = extname(localfile);
   const localfilext = extname(pathname);
+  console.log("ext", localfilext);
   // if (localfilext == ".css") {
   //   newHeaders.set(
   //     "Sec-Fetch-Dest",
