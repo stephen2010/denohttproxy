@@ -32,24 +32,12 @@ export async function staticfn(req: Request, pathname: string) {
   //  const localdir = dirname(localfile);
   // const localfilext = extname(localfile);
   const localfilext = extname(pathname);
-  // console.log("ext", localfilext);
 
-  // if (localfilext == ".css") {
-  //   newHeaders.set(
-  //     "Sec-Fetch-Dest",
-  //     "style",
-  //   );
-  // } else if (localfilext == ".js") {
-  //   newHeaders.set(
-  //     "Sec-Fetch-Dest",
-  //     "script",
-  //   );
-  // }
   const newhearders = new Headers();
   for (var [key, value] of req.headers) {
     switch (key) {
       case "host": {
-        newhearders.set(key, tihuan(value, "static.tradingview.com"));
+        newhearders.set(key, tihuan(value, "tradingview.com"));
         break;
       }
       case "origin": {
@@ -62,7 +50,6 @@ export async function staticfn(req: Request, pathname: string) {
       }
       case "Sec-Fetch-Dest": {
         const destzhi = localfilext == ".css" ? "style" : "script";
-        // console.log("destzhi", destzhi);
         newhearders.set(key, destzhi);
         break;
       }
@@ -74,7 +61,6 @@ export async function staticfn(req: Request, pathname: string) {
   console.log("newhearders", newhearders);
   const res = await fetch(tvurl, {
     headers: newHeaders,
-    // referrer: "https://tradingview.com/chart",
   });
   return res;
 }
