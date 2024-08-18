@@ -46,15 +46,15 @@ export async function staticfn(req: Request, pathname: string) {
   const newhearders = new Headers();
   for (var [key, value] of req.headers) {
     switch (key) {
-      case "host": {
+      case "Host": {
         newhearders.set(key, tihuan(value, "static.tradingview.com"));
         break;
       }
-      case "origin": {
+      case "Origin": {
         newhearders.set(key, tihuan(value, "tradingview.com"));
         break;
       }
-      case "referer": {
+      case "Referer": {
         newhearders.set(key, tihuan(value, "tradingview.com"));
         break;
       }
