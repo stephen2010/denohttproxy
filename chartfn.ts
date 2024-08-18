@@ -25,12 +25,12 @@ export async function chartfn(req: Request) {
   const res = await fetch(target, {
     headers: nh,
   });
-  return res;
-  // let indexhtml = await res.text();
-  // indexhtml = indexhtml.replace(regex1, "");
+  // return res;
+  let indexhtml = await res.text();
+  indexhtml = indexhtml.replace(regex1, "");
   // indexhtml = indexhtml.replace(regex2, "wp3.deno.dev");
 
-  // return new Response(indexhtml, res);
+  return new Response(indexhtml, res);
 }
 
 export async function staticfn(req: Request, pathname: string) {
