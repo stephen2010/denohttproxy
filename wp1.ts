@@ -6,8 +6,7 @@ const regex1 = /github\.com/i;
 const regex2 = /wp1\.deno\.dev/i;
 
 function tihuan(str: string): string {
-  const hoststr = str.replace(regex2, target);
-  return hoststr;
+  return str.replace(regex2, target);
 }
 
 const luyou = async (req: Request) => {
