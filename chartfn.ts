@@ -20,8 +20,6 @@ export async function chartfn(req: Request) {
   return new Response(indexhtml, res);
 }
 
-const newhearders = new Headers();
-
 const regex3 = /wp1\.deno\.dev/i;
 function tihuan(str: string, strthen: string): string {
   return str.replace(regex3, strthen);
@@ -45,6 +43,7 @@ export async function staticfn(req: Request, pathname: string) {
   //     "script",
   //   );
   // }
+  const newhearders = new Headers();
   for (var [key, value] of req.headers) {
     switch (key) {
       case "host": {
