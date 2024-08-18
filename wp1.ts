@@ -2,7 +2,9 @@ const kv = await Deno.openKv();
 
 let target: string | null = null;
 
+const regex1 = /github\.com/i;
 const regex2 = /wp1\.deno\.dev/i;
+
 function tihuan(str: string): string {
   const hoststr = str.replace(regex2, target);
   return hoststr;
@@ -36,16 +38,9 @@ const luyou = async (req: Request) => {
   }
 
   const newhearders = new Headers();
-  // const rescookiestr = (await kv.get(["cookie", target])).value;
-  // if (rescookiestr != null) {
-  //   newhearders.set("Cookie", rescookiestr as string);
-  // }
 
   for (var [key, value] of req.headers) {
     switch (key) {
-      // case "cookie": {
-      //   continue;
-      // }
       case "host": {
         newhearders.set(key, tihuan(value));
         break;
@@ -63,40 +58,25 @@ const luyou = async (req: Request) => {
       }
     }
   }
-//  console.log("newhearders", newhearders);
 
   let reqform: FormData | undefined = undefined;
   if (req.method == "POST") {
     reqform = await req.formData();
+    if (reqform.has("return_to")) {
+      let returnto = reqform.get("return_to");
+      returnto = returnto.replace(regex1, "wp1.deno.dev");
+      reqform.set("return_to", returnto);
+    }
     console.log("reqform", reqform);
   }
 
   const targeturl = req.url.replace(regex2, target);
-  // targeturl = "https://" + target + pn;
   const res = await fetch(targeturl, {
     headers: newhearders,
     method: req.method,
     body: reqform,
   });
-  // const reqcookiestr = getCookies(res.headers);
-  // await kv.set(["cookie", target], reqcookiestr);
   return res;
 };
 
 Deno.serve(luyou);
-/*
-function getCookies(resheaders: Headers): string {
-  const reqcookies: string[] = [];
-  for (const [key, setcookiestr] of resheaders) {
-    if (key === "set-cookie") {
-      const c = setcookiestr.split(";");
-      const c1 = c.shift();
-      if (c1 != null) {
-        reqcookies.push(c1);
-      }
-    }
-  }
-  const reqcookiestr = reqcookies.join(";");
-  return reqcookiestr;
-}
-*/
