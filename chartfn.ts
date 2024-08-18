@@ -5,6 +5,7 @@ const regex3 = /wp3\.deno\.dev/i;
 
 const regex1 = /https\:\/\/static\.tradingview\.com/g;
 // const regex2 = /data\.tradingview\.com/i;
+const client = Deno.createHttpClient({ http2: true });
 
 export async function chartfn(req: Request) {
   /*
@@ -24,6 +25,7 @@ export async function chartfn(req: Request) {
 
   const res = await fetch(target, {
     headers: nh,
+    client,
   });
   let indexhtml = await res.text();
   indexhtml = indexhtml.replace(regex1, "");
@@ -57,6 +59,7 @@ export async function staticfn(req: Request, pathname: string) {
 
   const res = await fetch(target, {
     headers: nh,
+    client,
   });
   return res;
 }
