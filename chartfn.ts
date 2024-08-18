@@ -20,7 +20,7 @@ export async function chartfn(req: Request) {
   return new Response(indexhtml, res);
 }
 
-const regex3 = /wp1\.deno\.dev/i;
+const regex3 = /wp3\.deno\.dev/i;
 function tihuan(str: string, strthen: string): string {
   return str.replace(regex3, strthen);
 }
@@ -32,7 +32,8 @@ export async function staticfn(req: Request, pathname: string) {
   //  const localdir = dirname(localfile);
   // const localfilext = extname(localfile);
   const localfilext = extname(pathname);
-  console.log("ext", localfilext);
+  // console.log("ext", localfilext);
+
   // if (localfilext == ".css") {
   //   newHeaders.set(
   //     "Sec-Fetch-Dest",
@@ -61,6 +62,7 @@ export async function staticfn(req: Request, pathname: string) {
       }
       case "Sec-Fetch-Dest": {
         const destzhi = localfilext == ".css" ? "style" : "script";
+        // console.log("destzhi", destzhi);
         newhearders.set(key, destzhi);
         break;
       }
