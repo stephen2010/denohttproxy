@@ -59,9 +59,9 @@ export async function staticfn(req: Request, pathname: string) {
   const res = await fetch(target, {
     headers: nh,
   });
-  // return res;
-  let indexhtml = await res.text();
-  return new Response(indexhtml, res);
+  return res;
+  // let indexhtml = await res.text();
+  // return new Response(indexhtml, res);
 }
 
 //========================================
