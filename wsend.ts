@@ -1,5 +1,5 @@
 import { readLines } from "jsr:@std/io/read-lines";
-const BUILD_TIME = "2024_08_19-18_00";
+const BUILD_TIME = "2024_08_19-21_00";
 const WEBSOCKET_CONNECTION_TYPE = "chart";
 
 const target =
