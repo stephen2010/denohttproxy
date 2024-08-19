@@ -5,7 +5,7 @@ const WEBSOCKET_CONNECTION_TYPE = "chart";
 const target =
   "wss://data.tradingview.com/socket.io/websocket?from=chart&date=" +
   BUILD_TIME + "&type=" + WEBSOCKET_CONNECTION_TYPE;
-// console.log(target);
+console.log(target);
 
 const ws = new WebSocket(target);
 
