@@ -2,7 +2,8 @@ import { readLines } from "jsr:@std/io/read-lines";
 const BUILD_TIME = "2024_08_19-18_00";
 const WEBSOCKET_CONNECTION_TYPE = "chart";
 
-const target = "wss://moowoo.life/socket.io/websocket?from=chart&date=" +
+const target =
+  "wss://data.tradingview.com/socket.io/websocket?from=chart&date=" +
   BUILD_TIME + "&type=" + WEBSOCKET_CONNECTION_TYPE;
 // console.log(target);
 
