@@ -1,6 +1,5 @@
 let target: string | null = null;
-
-Deno.serve(async (req) => {
+const luyou = async (req: Request) => {
   const url = new URL(req.url);
   const pn = url.pathname;
   const pathsz = pn.split("/");
@@ -19,11 +18,13 @@ Deno.serve(async (req) => {
 
   url.host = target;
 
-  const newreq = new req(url.toString(), {
+  const newreq = new Request(url.toString(), {
     headers: req.headers,
     method: req.method,
     body: req.body,
     redirect: "follow",
   });
   return await fetch(newreq);
-});
+};
+
+Deno.serve(luyou);
