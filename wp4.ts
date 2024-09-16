@@ -11,8 +11,6 @@ Deno.serve(async (req) => {
     return Response.redirect("https://wp4.deno.dev/", 301);
   }
 
-  const url = new URL(req.url);
-
   if (target == null) {
     return new Response("404: Not Found", {
       status: 404,
