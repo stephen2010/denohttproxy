@@ -1,3 +1,5 @@
+const regex2 = /wp4\.deno\.dev/i;
+
 let target: string | null = null;
 const luyou = async (req: Request) => {
   const url = new URL(req.url);
@@ -16,9 +18,9 @@ const luyou = async (req: Request) => {
     });
   }
 
-  url.host = target;
+  const targeturl = req.url.replace(regex2, target);
 
-  const newreq = new Request(url.toString(), {
+  const newreq = new Request(targeturl, {
     headers: req.headers,
     method: req.method,
     body: req.body,
